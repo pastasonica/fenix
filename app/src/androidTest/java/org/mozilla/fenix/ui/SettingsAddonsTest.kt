@@ -19,6 +19,7 @@ import org.mozilla.fenix.helpers.HomeActivityTestRule
 import org.mozilla.fenix.helpers.RecyclerViewIdlingResource
 import org.mozilla.fenix.helpers.RetryTestRule
 import org.mozilla.fenix.helpers.TestAssetHelper
+import org.mozilla.fenix.helpers.TestAssetHelper.getGenericAsset
 import org.mozilla.fenix.helpers.ViewVisibilityIdlingResource
 import org.mozilla.fenix.ui.robots.addonsMenu
 import org.mozilla.fenix.ui.robots.homeScreen
@@ -150,7 +151,7 @@ class SettingsAddonsTest {
     @Test
     fun useAddonsInPrivateModeTest() {
         val addonName = "uBlock Origin"
-        val trackingPage = TestAssetHelper.getEnhancedTrackingProtectionAsset(mockWebServer)
+        val genericPage = getGenericAsset(mockWebServer, 1)
 
         homeScreen {
         }.togglePrivateBrowsingMode()
@@ -161,8 +162,8 @@ class SettingsAddonsTest {
             IdlingRegistry.getInstance().unregister(addonsListIdlingResource!!)
         }.goBack {}
         navigationToolbar {
-        }.enterURLAndEnterToBrowser(trackingPage.url) {
-            verifyPageContent(trackingPage.content)
+        }.enterURLAndEnterToBrowser(genericPage.url) {
+            verifyPageContent(genericPage.content)
         }.openThreeDotMenu {
             openAddonsSubList()
             verifyAddonAvailableInMainMenu(addonName)
