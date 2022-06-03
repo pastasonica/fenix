@@ -47,7 +47,16 @@ import org.mozilla.fenix.helpers.ext.waitNotNull
 class SettingsSubMenuAddonsManagerRobot {
     fun verifyAddonPermissionPrompt(addonName: String) = assertAddonPermissionPrompt(addonName)
 
-    fun clickInstallAddon(addonName: String) = selectInstallAddon(addonName)
+    fun clickInstallAddon(addonName: String) {
+        mDevice.waitNotNull(
+            Until.findObject(By.textContains(addonName)),
+            waitingTime
+        )
+
+        installButtonForAddon(addonName)
+            .check(matches(isCompletelyDisplayed()))
+            .perform(click())
+    }
 
     fun closeAddonInstallCompletePrompt(
         addonName: String,
@@ -126,17 +135,6 @@ class SettingsSubMenuAddonsManagerRobot {
                 hasSibling(hasDescendant(withText(addonName)))
             )
         )
-
-    private fun selectInstallAddon(addonName: String) {
-        mDevice.waitNotNull(
-            Until.findObject(By.textContains(addonName)),
-            waitingTime
-        )
-
-        installButtonForAddon(addonName)
-            .check(matches(isCompletelyDisplayed()))
-            .perform(click())
-    }
 
     private fun assertAddonIsEnabled(addonName: String) {
         installButtonForAddon(addonName)

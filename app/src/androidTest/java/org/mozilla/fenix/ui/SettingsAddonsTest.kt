@@ -9,7 +9,6 @@ import androidx.test.espresso.IdlingRegistry
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.mozilla.fenix.R
@@ -104,7 +103,7 @@ class SettingsAddonsTest {
     }
 
     // Installs an addon, then uninstalls it
-    @Ignore("Intermittent failures, see: https://github.com/mozilla-mobile/fenix/issues/24843")
+    // @Ignore("Intermittent failures, see: https://github.com/mozilla-mobile/fenix/issues/24843")
     @Test
     fun verifyAddonsCanBeUninstalled() {
         val addonName = "uBlock Origin"
@@ -146,7 +145,7 @@ class SettingsAddonsTest {
         }
     }
 
-    @Ignore("Failing, see: https://github.com/mozilla-mobile/fenix/issues/23749")
+   // @Ignore("Failing, see: https://github.com/mozilla-mobile/fenix/issues/23749")
     @SmokeTest
     @Test
     fun useAddonsInPrivateModeTest() {

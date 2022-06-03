@@ -4,6 +4,7 @@
 
 package org.mozilla.fenix.helpers
 
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.IdlingResourceTimeoutException
 import androidx.test.espresso.NoMatchingViewException
 import androidx.test.uiautomator.UiObjectNotFoundException
@@ -11,7 +12,6 @@ import junit.framework.AssertionFailedError
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.lang.AssertionError
 
 class RetryTestRule(private val retryCount: Int = 5) : TestRule {
 
@@ -23,30 +23,51 @@ class RetryTestRule(private val retryCount: Int = 5) : TestRule {
                     base.evaluate()
                     break
                 } catch (t: AssertionError) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: AssertionFailedError) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: UiObjectNotFoundException) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: NoMatchingViewException) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: IdlingResourceTimeoutException) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: RuntimeException) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
                 } catch (t: NullPointerException) {
+                    for (resource in IdlingRegistry.getInstance().resources) {
+                        IdlingRegistry.getInstance().unregister(resource)
+                    }
                     if (i == retryCount) {
                         throw t
                     }
